@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Тест на финансовую грамотность</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--bg: #f6f8f7;
+				--ink: #33424a;
+				--mute: #74858c;
+				--deep: #4c7a69;
+				--sage: #c4dcd0;
+				--mist: #cbd8f0;
+				--blush: #f4dad3;
+				--sand: #f3ead6;
+				--line: rgba(51, 66, 74, 0.12);
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				margin: 0;
+				min-height: 100vh;
+				font-family:
+					Manrope,
+					system-ui,
+					-apple-system,
+					"Segoe UI",
+					sans-serif;
+				color: var(--ink);
+				line-height: 1.6;
+				background: var(--bg);
+				background-image:
+					radial-gradient(
+						60% 50% at 12% 8%,
+						var(--mist) 0,
+						transparent 70%
+					),
+					radial-gradient(
+						50% 45% at 92% 20%,
+						var(--blush) 0,
+						transparent 70%
+					),
+					radial-gradient(
+						60% 50% at 70% 100%,
+						var(--sage) 0,
+						transparent 70%
+					),
+					radial-gradient(
+						40% 35% at 5% 90%,
+						var(--sand) 0,
+						transparent 70%
+					);
+				background-attachment: fixed;
+			}
+			main {
+				max-width: 640px;
+				margin: 0 auto;
+				padding: clamp(24px, 8vh, 80px) 20px 60px;
+			}
+			h1 {
+				font-weight: 300;
+				font-size: clamp(2.2rem, 7vw, 3.4rem);
+				line-height: 1.12;
+				letter-spacing: -0.02em;
+				margin: 0 0 20px;
+			}
+			h2 {
+				font-weight: 400;
+				font-size: clamp(1.3rem, 4vw, 1.65rem);
+				line-height: 1.35;
+				margin: 0 0 28px;
+				letter-spacing: -0.01em;
+			}
+			h3 {
+				font-weight: 500;
+				font-size: 1rem;
+				margin: 28px 0 12px;
+			}
+			p {
+				margin: 0 0 16px;
+			}
+			.lead {
+				color: var(--mute);
+				font-size: 1.08rem;
+				max-width: 34em;
+			}
+			.card {
+				background: rgba(255, 255, 255, 0.62);
+				backdrop-filter: blur(14px);
+				-webkit-backdrop-filter: blur(14px);
+				border: 1px solid rgba(255, 255, 255, 0.8);
+				border-radius: 32px;
+				padding: clamp(24px, 5vw, 44px);
+				box-shadow: 0 30px 80px -40px rgba(76, 122, 105, 0.35);
+			}
+			.btn {
+				font: inherit;
+				font-weight: 500;
+				cursor: pointer;
+				border: 0;
+				border-radius: 999px;
+				padding: 14px 32px;
+				background: var(--deep);
+				color: #fff;
+				transition:
+					transform 0.2s,
+					background 0.2s;
+			}
+			.btn:hover {
+				background: #3f6858;
+				transform: translateY(-1px);
+			}
+			.btn.ghost {
+				background: transparent;
+				color: var(--deep);
+				border: 1px solid var(--line);
+			}
+			:focus-visible {
+				outline: 3px solid var(--mist);
+				outline-offset: 3px;
+			}
+			.meta {
+				color: var(--mute);
+				font-size: 0.92rem;
+			}
+			.range {
+				margin: 32px 0 8px;
+			}
+			input[type="range"] {
+				width: 100%;
+				accent-color: var(--deep);
+				height: 28px;
+			}
+			.rv {
+				font-size: 3rem;
+				font-weight: 300;
+				text-align: center;
+				line-height: 1;
+			}
+			.ends {
+				display: flex;
+				justify-content: space-between;
+			}
+			.bar {
+				height: 6px;
+				border-radius: 9px;
+				background: var(--line);
+				margin-bottom: 28px;
+				overflow: hidden;
+			}
+			.bar i {
+				display: block;
+				height: 100%;
+				background: var(--deep);
+				border-radius: 9px;
+				transition: width 0.4s ease;
+			}
+			.opts {
+				display: grid;
+				gap: 12px;
+			}
+			.opt {
+				font: inherit;
+				text-align: left;
+				cursor: pointer;
+				background: rgba(255, 255, 255, 0.75);
+				border: 1px solid var(--line);
+				border-radius: 20px;
+				padding: 15px 20px;
+				color: var(--ink);
+				transition:
+					background 0.2s,
+					border-color 0.2s,
+					transform 0.2s;
+			}
+			.opt:hover {
+				background: #fff;
+				border-color: var(--sage);
+				transform: translateX(3px);
+			}
+			.opt.dk {
+				color: var(--mute);
+				background: transparent;
+				border-style: dashed;
+			}
+			.scale {
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				gap: 8px;
+			}
+			.scale .opt {
+				text-align: center;
+				padding: 16px 0;
+				font-size: 1.1rem;
+			}
+			.scale .opt:hover {
+				transform: translateY(-2px);
+			}
+			.q {
+				animation: in 0.35s ease;
+			}
+			@keyframes in {
+				from {
+					opacity: 0;
+					transform: translateY(8px);
+				}
+				to {
+					opacity: 1;
+					transform: none;
+				}
+			}
+			.score {
+				text-align: center;
+				padding: 8px 0 4px;
+			}
+			.score b {
+				display: block;
+				font-size: clamp(4.5rem, 18vw, 7rem);
+				font-weight: 300;
+				line-height: 1;
+				letter-spacing: -0.04em;
+			}
+			.lvl {
+				display: inline-block;
+				margin-top: 12px;
+				padding: 6px 18px;
+				border-radius: 999px;
+				background: var(--sage);
+				font-weight: 500;
+			}
+			.row {
+				margin-bottom: 16px;
+			}
+			.row div:first-child {
+				display: flex;
+				justify-content: space-between;
+				font-size: 0.95rem;
+				margin-bottom: 6px;
+			}
+			.row .bar {
+				margin: 0;
+				height: 9px;
+			}
+			.note {
+				padding: 16px 20px;
+				border-radius: 20px;
+				background: var(--blush);
+				margin: 12px 0;
+				font-size: 0.96rem;
+			}
+			.note.ok {
+				background: var(--sage);
+			}
+			.note.info {
+				background: var(--mist);
+			}
+			footer {
+				text-align: center;
+				color: var(--mute);
+				font-size: 0.82rem;
+				margin-top: 28px;
+			}
+			.hide {
+				display: none;
+			}
+			@media (prefers-reduced-motion: reduce) {
+				* {
+					animation: none !important;
+					transition: none !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div id="app"></div>
+			<footer>
+				Тест носит образовательный характер. Ответы не сохраняются и
+				никуда не отправляются.
+			</footer>
+		</main>
+		<script>
+			/* ===== Настройки ===== */
+			const CUR = "₽"; // валюта в вопросах (числа в вопросах записаны вручную)
+			const WEIGHTS = { k: 0.35, a: 0.3, b: 0.25, t: 0.1 };
+			const COMP = {
+				k: "Знания",
+				a: "Применение",
+				b: "Поведение",
+				t: "Установки",
+			};
+			const TOPICS = {
+				budget: "Бюджет",
+				savings: "Сбережения",
+				credit: "Кредиты и долги",
+				percent: "Проценты и инфляция",
+				invest: "Инвестиции и риск",
+				protect: "Защита от мошенников",
+				goals: "Цели и планирование",
+			};
+			const FREQ = ["Никогда", "Редко", "Иногда", "Часто", "Всегда"];
+			const AGREE = [
+				"Совсем не согласен",
+				"Скорее нет",
+				"Нейтрально",
+				"Скорее да",
+				"Полностью согласен",
+			];
+
+			/* ===== Банк вопросов =====
+ c: k знания, a применение, b поведение (частота), t установки (согласие)
+ d: сложность 1-3 (вес), o: варианты, r: индекс верного, crit: текст флага при ошибке,
+ rev: обратная шкала. Вариант «Не знаю» добавляется автоматически. */
+			const Q = [
+				{
+					c: "k",
+					t: "percent",
+					d: 1,
+					q: `Вклад 100 000 ${CUR} под 10% годовых, инфляция за год 15%. Что вы сможете купить на эти деньги через год?`,
+					o: [
+						"Больше, чем сегодня",
+						"Столько же",
+						"Меньше, чем сегодня",
+					],
+					r: 2,
+				},
+				{
+					c: "k",
+					t: "percent",
+					d: 2,
+					q: `100 000 ${CUR} вложены на 2 года под 12% годовых с капитализацией процентов раз в год. Сколько будет в конце срока?`,
+					o: [
+						`Ровно 124 000 ${CUR}`,
+						`Больше 124 000 ${CUR}`,
+						`Меньше 124 000 ${CUR}`,
+					],
+					r: 1,
+					crit: "Сложный процент: это основа накоплений и кредитов, стоит разобраться с ним в первую очередь.",
+				},
+				{
+					c: "k",
+					t: "invest",
+					d: 1,
+					q: "Что значит «не класть все яйца в одну корзину»?",
+					o: [
+						"Хранить деньги только наличными",
+						"Распределять вложения между разными активами",
+						"Вкладывать всё в самый прибыльный актив",
+						"Часто менять банк",
+					],
+					r: 1,
+				},
+				{
+					c: "k",
+					t: "invest",
+					d: 1,
+					q: "Как обычно связаны доходность и риск вложений?",
+					o: [
+						"Чем выше возможная доходность, тем выше риск",
+						"Чем выше доходность, тем ниже риск",
+						"Между ними нет связи",
+					],
+					r: 0,
+				},
+				{
+					c: "k",
+					t: "savings",
+					d: 1,
+					q: "Сколько месячных расходов обычно советуют держать в «подушке безопасности»?",
+					o: [
+						"Один месяц",
+						"От 3 до 6 месяцев",
+						"Три года",
+						"Подушка не нужна, если есть кредитка",
+					],
+					r: 1,
+				},
+				{
+					c: "k",
+					t: "credit",
+					d: 2,
+					q: "Что показывает полная стоимость кредита (ПСК)?",
+					o: [
+						"Только процентную ставку",
+						"Все платежи по кредиту, включая комиссии и сборы, в годовом выражении",
+						"Размер ежемесячного платежа",
+						"Сумму, которую одобрил банк",
+					],
+					r: 1,
+				},
+				{
+					c: "a",
+					t: "credit",
+					d: 2,
+					q: `Кредит А: 100 000 ${CUR} на год, вернуть 118 000 ${CUR}. Кредит Б: 100 000 ${CUR} на год, вернуть 112 000 ${CUR} плюс комиссия 8 000 ${CUR} за оформление. Какой дешевле?`,
+					o: ["А", "Б", "Одинаково"],
+					r: 0,
+				},
+				{
+					c: "a",
+					t: "budget",
+					d: 2,
+					q: `Доход 100 000 ${CUR} в месяц, обязательные расходы 55 000 ${CUR}. Вы хотите откладывать 20% дохода. Сколько останется на всё остальное?`,
+					o: [
+						`15 000 ${CUR}`,
+						`25 000 ${CUR}`,
+						`35 000 ${CUR}`,
+						`45 000 ${CUR}`,
+					],
+					r: 1,
+				},
+				{
+					c: "a",
+					t: "percent",
+					d: 3,
+					q: `Товар стоил 20 000 ${CUR}. Скидка 25%, а на новую цену ещё 20%. Сколько он стоит в итоге?`,
+					o: [`11 000 ${CUR}`, `12 000 ${CUR}`, `13 000 ${CUR}`],
+					r: 1,
+				},
+				{
+					c: "a",
+					t: "goals",
+					d: 1,
+					q: `Вы хотите накопить 600 000 ${CUR} за 3 года без процентов. Сколько откладывать в месяц?`,
+					o: [
+						`около 12 500 ${CUR}`,
+						`около 16 700 ${CUR}`,
+						`около 20 000 ${CUR}`,
+					],
+					r: 1,
+				},
+				{
+					c: "a",
+					t: "protect",
+					d: 1,
+					q: "Звонят из «службы безопасности банка» и просят назвать код из СМС, чтобы «защитить счёт». Ваши действия?",
+					o: [
+						"Назову код, ведь они знают моё имя",
+						"Положу трубку и сам позвоню в банк по номеру с карты",
+						"Назову только часть кода",
+					],
+					r: 1,
+					crit: "Вы поддались на типичную схему телефонного мошенничества. Код из СМС нельзя сообщать никому.",
+				},
+				{
+					c: "a",
+					t: "protect",
+					d: 2,
+					q: "Вам предлагают вложения: «гарантируем 5% в месяц без риска». Как поступите?",
+					o: [
+						"Вложу, раз гарантия",
+						"Вложу небольшую сумму на пробу",
+						"Не вложу: такая гарантированная доходность признак обмана",
+					],
+					r: 2,
+					crit: "Обещание высокой гарантированной доходности почти всегда признак пирамиды или мошенничества.",
+				},
+				{ c: "b", t: "budget", q: "Я веду учёт доходов и расходов" },
+				{
+					c: "b",
+					t: "savings",
+					q: "Я откладываю часть дохода сразу после получения",
+				},
+				{
+					c: "b",
+					t: "credit",
+					q: "Я плачу по счетам и кредитам вовремя",
+				},
+				{
+					c: "b",
+					t: "budget",
+					q: "Перед крупной покупкой я сравниваю несколько вариантов",
+				},
+				{
+					c: "b",
+					t: "credit",
+					q: "Я тратю больше, чем зарабатываю, и покрываю разницу кредитом",
+					rev: 1,
+				},
+				{
+					c: "b",
+					t: "protect",
+					q: "Я использую разные пароли и двухфакторную защиту для финансовых сервисов",
+				},
+				{
+					c: "t",
+					t: "goals",
+					q: "Деньги нужны, чтобы тратить, а не копить",
+					rev: 1,
+				},
+				{
+					c: "t",
+					t: "goals",
+					q: "Я могу влиять на своё финансовое будущее",
+				},
+				{
+					c: "t",
+					t: "invest",
+					q: "Инвестиции это то же самое, что азартная игра",
+					rev: 1,
+				},
+			];
+
+			const LEVELS = [
+				[
+					40,
+					"Начальный",
+					"Есть пробелы в базовых вещах, из-за которых легко потерять деньги. Хорошая новость: начать можно с малого.",
+				],
+				[
+					60,
+					"Базовый",
+					"Основы вам знакомы, но в ряде тем решения пока принимаются на ощущениях.",
+				],
+				[
+					80,
+					"Уверенный",
+					"Вы принимаете осознанные решения и замечаете подвохи.",
+				],
+				[
+					101,
+					"Продвинутый",
+					"Сильные знания и привычки. Осталось шлифовать детали.",
+				],
+			];
+
+			/* ===== Логика ===== */
+			const app = document.getElementById("app");
+			let order, idx, res, selfScore;
+			const shuffle = (a) => {
+				a = a.slice();
+				for (let i = a.length - 1; i > 0; i--) {
+					const j = (Math.random() * (i + 1)) | 0;
+					[a[i], a[j]] = [a[j], a[i]];
+				}
+				return a;
+			};
+			const esc = (s) =>
+				s.replace(
+					/[&<>]/g,
+					(m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[m],
+				);
+
+			function intro() {
+				app.innerHTML = `<div class="card">
+    <h1>Насколько вы уверенно обращаетесь с деньгами?</h1>
+    <p class="lead">${Q.length} коротких вопросов о знаниях, решениях и привычках. Около 5 минут. В конце вы получите общий балл и карту сильных и слабых сторон.</p>
+    <div class="range"><label for="self"><b>Сначала оцените себя</b><br><span class="meta">Насколько вы финансово грамотны, по шкале от 1 до 10?</span></label>
+    <div class="rv" id="rv">5</div>
+    <input type="range" id="self" min="1" max="10" value="5">
+    <div class="ends meta"><span>совсем не разбираюсь</span><span>эксперт</span></div></div>
+    <p style="margin-top:32px"><button class="btn" id="go">Начать тест</button></p></div>`;
+				const s = document.getElementById("self");
+				s.oninput = () =>
+					(document.getElementById("rv").textContent = s.value);
+				document.getElementById("go").onclick = () => {
+					selfScore = +s.value;
+					order = shuffle(Q);
+					idx = 0;
+					res = [];
+					ask();
+				};
+			}
+
+			function ask() {
+				const q = order[idx],
+					pct = (idx / order.length) * 100;
+				let body;
+				if (q.c === "b" || q.c === "t") {
+					const L = q.c === "b" ? FREQ : AGREE;
+					body = `<div class="scale">${[0, 1, 2, 3, 4].map((i) => `<button class="opt" data-v="${i}" aria-label="${L[i]}">${i + 1}</button>`).join("")}</div>
+      <div class="ends meta" style="margin-top:10px"><span>${L[0]}</span><span>${L[4]}</span></div>`;
+				} else {
+					const os = shuffle(q.o.map((t, i) => [t, i]));
+					body = `<div class="opts">${os.map(([t, i]) => `<button class="opt" data-v="${i}">${esc(t)}</button>`).join("")}<button class="opt dk" data-v="-1">Не знаю</button></div>`;
+				}
+				app.innerHTML = `<div class="card q"><div class="bar" role="progressbar" aria-valuenow="${idx}" aria-valuemax="${order.length}"><i style="width:${pct}%"></i></div>
+    <p class="meta">Вопрос ${idx + 1} из ${order.length}</p><h2>${esc(q.q)}</h2>${body}</div>`;
+				app.querySelectorAll(".opt").forEach(
+					(b) => (b.onclick = () => answer(q, +b.dataset.v)),
+				);
+			}
+
+			function answer(q, v) {
+				let earned, max;
+				if (q.c === "b" || q.c === "t") {
+					max = 1;
+					earned = (q.rev ? 4 - v : v) / 4;
+				} else {
+					max = q.d;
+					earned = v === q.r ? q.d : 0;
+				}
+				res.push({ q, earned, max, wrong: q.crit && v !== q.r });
+				idx++;
+				idx < order.length ? ask() : results();
+			}
+
+			function sum(list) {
+				const e = list.reduce((a, r) => a + r.earned, 0),
+					m = list.reduce((a, r) => a + r.max, 0);
+				return m ? (e / m) * 100 : null;
+			}
+
+			function results() {
+				const comp = {};
+				let total = 0,
+					w = 0;
+				for (const k in WEIGHTS) {
+					comp[k] = sum(res.filter((r) => r.q.c === k));
+					if (comp[k] !== null) {
+						total += comp[k] * WEIGHTS[k];
+						w += WEIGHTS[k];
+					}
+				}
+				const score = Math.round(total / w);
+				const lvl = LEVELS.find((l) => score < l[0]);
+				const topics = Object.keys(TOPICS)
+					.map((k) => [k, sum(res.filter((r) => r.q.t === k))])
+					.filter((x) => x[1] !== null)
+					.sort((a, b) => b[1] - a[1]);
+				const gap = selfScore * 10 - score;
+				const conf =
+					gap > 20
+						? [
+								"Вы оцениваете себя выше, чем показал тест. Это зона риска: уверенность опережает знания.",
+								"",
+							]
+						: gap < -20
+							? [
+									"Вы знаете больше, чем думаете. Можно смелее доверять своим решениям.",
+									"ok",
+								]
+							: [
+									"Ваша самооценка близка к результату. Вы неплохо понимаете свои сильные и слабые стороны.",
+									"ok",
+								];
+				const flags = res
+					.filter((r) => r.wrong)
+					.map((r) => `<div class="note">${esc(r.q.crit)}</div>`)
+					.join("");
+				const bar = (n, v, c) =>
+					`<div class="row"><div><span>${n}</span><span>${Math.round(v)}</span></div><div class="bar"><i style="width:${v}%;background:${c}"></i></div></div>`;
+				const cols = ["#8FB8A5", "#9DB2DE", "#E8B4A8", "#D9C79C"];
+				app.innerHTML = `<div class="card">
+    <div class="score"><span class="meta">Ваш результат</span><b>${score}</b><span class="lvl">${lvl[1]}</span></div>
+    <p style="text-align:center;margin-top:16px" class="lead">${lvl[2]}</p>
+    ${flags ? `<h3>На что обратить внимание</h3>${flags}` : ""}
+    <h3>Самооценка и реальность</h3>
+    <div class="note ${conf[1] || ""}">Вы оценили себя на ${selfScore} из 10, результат ${score} из 100. ${conf[0]}</div>
+    <h3>По компонентам</h3>${Object.keys(comp)
+		.filter((k) => comp[k] !== null)
+		.map((k, i) => bar(COMP[k], comp[k], cols[i]))
+		.join("")}
+    <h3>По темам</h3>${topics.map(([k, v]) => bar(TOPICS[k], v, "#9DB2DE")).join("")}
+    <div class="note info">Сильнее всего: <b>${TOPICS[topics[0][0]]}</b>. Начать стоит с темы <b>${TOPICS[topics[topics.length - 1][0]]}</b>.</div>
+    <p style="margin-top:28px"><button class="btn ghost" id="again">Пройти заново</button></p></div>`;
+				document.getElementById("again").onclick = intro;
+				scrollTo({ top: 0 });
+			}
+			intro();
+		</script>
+	</body>
+</html>
